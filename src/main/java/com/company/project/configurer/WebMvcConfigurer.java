@@ -38,14 +38,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import org.apache.catalina.Context;
-import org.apache.catalina.connector.Connector;
-import org.apache.tomcat.util.descriptor.web.SecurityCollection;
-import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
-import org.springframework.context.annotation.Bean;
-
 /**
  * Spring MVC 配置
  */
@@ -176,34 +168,4 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
         return StringUtils.equals(sign, requestSign);// 比较
     }
-    /*
-     * https
-     * 
-     * @Bean public Connector connector() { Connector connector = new
-     * Connector("org.apache.coyote.http11.Http11NioProtocol");
-     * connector.setScheme("http"); connector.setPort(8080);
-     * connector.setSecure(false); connector.setRedirectPort(443); return connector;
-     * }
-     * 
-     */
-    /**
-     * it's for set http url auto change to https
-     */
-    /*
-     * @Value("${Redirect443}") private Boolean Redirect443;
-     * 
-     * @Bean public EmbeddedServletContainerFactory servletContainer() {
-     * TomcatEmbeddedServletContainerFactory tomcat = new
-     * TomcatEmbeddedServletContainerFactory() {
-     * 
-     * @Override protected void postProcessContext(Context context) { if
-     * (Redirect443) { SecurityConstraint securityConstraint = new
-     * SecurityConstraint(); securityConstraint.setUserConstraint("CONFIDENTIAL");//
-     * confidential SecurityCollection collection = new SecurityCollection();
-     * collection.addPattern("/*"); securityConstraint.addCollection(collection);
-     * context.addConstraint(securityConstraint); } } };
-     * tomcat.addAdditionalTomcatConnectors(connector()); return tomcat;
-     * 
-     * }
-     */
 }

@@ -52,7 +52,7 @@ public class AccountServiceImpl extends AbstractService<Account> implements Acco
         account.setIsDeleted(false);
         account.setCreateTime(new Date());
 
-        account.setUsername(dto.getUsername());
+        account.setName(dto.getUsername());
         try {
             account.setPassword(MD5.md5("123456"));
         } catch (Exception e) {
@@ -71,7 +71,7 @@ public class AccountServiceImpl extends AbstractService<Account> implements Acco
     public int updateAccount(String id, AccountDTO dto) {
         Account account = new Account();
         account.setId(id);
-        account.setUsername(dto.getUsername());
+        account.setName(dto.getUsername());
 
         int rows = this.update(account);
         if (rows == 1) {

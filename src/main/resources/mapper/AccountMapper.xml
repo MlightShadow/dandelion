@@ -6,10 +6,13 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="is_deleted" jdbcType="BIT" property="isDeleted" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
   </resultMap>
 </mapper>

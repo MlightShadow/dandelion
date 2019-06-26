@@ -1,5 +1,7 @@
 package com.company.project.web;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import com.company.project.core.Result;
@@ -35,28 +37,24 @@ public class TokenController {
     @Resource
     private AccountService accountService;
 
-    //@NeedApiLog 没数据库就不log了
+    // @NeedApiLog 没数据库就不log了
     @PostMapping("/take")
     public Result<?> take(@RequestBody LoginDTO loginInfo) {
         Condition condition = new Condition(Account.class);
         try {
-            condition.createCriteria()
-                .andCondition("username=", loginInfo.getUsername())
-                .andCondition("password=", MD5.md5(loginInfo.getPassword()));
+            condition.createCriteria().andCondition("username=", loginInfo.getUsername()).andCondition("password=",
+                    MD5.md5(loginInfo.getPassword()));
         } catch (Exception e) {
             e.printStackTrace();
             return ResultGenerator.genFailResult("登录失败");
         }
-        //登录演示
-        //List<Account> list = accountService.findByCondition(condition);
-        Account account = new Account();
-        if (/*list.size() == 1*/ true) {
-            //account = list.get(0);
 
-            account.setId("123");
-            account.setUsername("root");
-            account.setPassword("root");
-            AuthorizedInfo authInfo = new AuthorizedInfo(account.getId(), account.getUsername(), account.getPassword());
+        List<Account> list = accountService.findByCondition(condition);
+        Account account = new Account();
+        if (list.size() == 1) {
+            account = list.get(0);
+
+            AuthorizedInfo authInfo = new AuthorizedInfo(account.getId(), account.getName(), account.getPassword());
             String token = jwtUtil.generateAccessToken(authInfo);
             jwtUtil.putToken(account.getId(), token);
             return ResultGenerator.genSuccessResult(token);

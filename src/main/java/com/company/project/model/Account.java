@@ -8,10 +8,29 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
+    @Column(name = "is_deleted")
+    private Boolean isDeleted;
+
+    private String creator;
+
+    @Column(name = "create_time")
+    private Date createTime;
+
     /**
-     * 帐号名
+     * 帐户名
      */
-    private String username;
+    private String name;
+
+    /**
+     * 昵称
+     */
+    @Column(name = "nick_name")
+    private String nickName;
+
+    /**
+     * 头像
+     */
+    private String avatar;
 
     /**
      * 密码
@@ -19,18 +38,10 @@ public class Account {
     private String password;
 
     /**
-     * 创建时间
+     * 最近登录时间
      */
-    @Column(name = "create_time")
-    private Date createTime;
-
-    /**
-     * 账号状态
-     */
-    private Integer status;
-
-    @Column(name = "is_deleted")
-    private Boolean isDeleted;
+    @Column(name = "last_login_time")
+    private Date lastLoginTime;
 
     /**
      * @return id
@@ -47,21 +58,99 @@ public class Account {
     }
 
     /**
-     * 获取帐号名
-     *
-     * @return username - 帐号名
+     * @return is_deleted
      */
-    public String getUsername() {
-        return username;
+    public Boolean getIsDeleted() {
+        return isDeleted;
     }
 
     /**
-     * 设置帐号名
-     *
-     * @param username 帐号名
+     * @param isDeleted
      */
-    public void setUsername(String username) {
-        this.username = username;
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    /**
+     * @return creator
+     */
+    public String getCreator() {
+        return creator;
+    }
+
+    /**
+     * @param creator
+     */
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    /**
+     * @return create_time
+     */
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    /**
+     * @param createTime
+     */
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    /**
+     * 获取帐户名
+     *
+     * @return name - 帐户名
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * 设置帐户名
+     *
+     * @param name 帐户名
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * 获取昵称
+     *
+     * @return nick_name - 昵称
+     */
+    public String getNickName() {
+        return nickName;
+    }
+
+    /**
+     * 设置昵称
+     *
+     * @param nickName 昵称
+     */
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    /**
+     * 获取头像
+     *
+     * @return avatar - 头像
+     */
+    public String getAvatar() {
+        return avatar;
+    }
+
+    /**
+     * 设置头像
+     *
+     * @param avatar 头像
+     */
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     /**
@@ -83,52 +172,20 @@ public class Account {
     }
 
     /**
-     * 获取创建时间
+     * 获取最近登录时间
      *
-     * @return create_time - 创建时间
+     * @return last_login_time - 最近登录时间
      */
-    public Date getCreateTime() {
-        return createTime;
+    public Date getLastLoginTime() {
+        return lastLoginTime;
     }
 
     /**
-     * 设置创建时间
+     * 设置最近登录时间
      *
-     * @param createTime 创建时间
+     * @param lastLoginTime 最近登录时间
      */
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    /**
-     * 获取账号状态
-     *
-     * @return status - 账号状态
-     */
-    public Integer getStatus() {
-        return status;
-    }
-
-    /**
-     * 设置账号状态
-     *
-     * @param status 账号状态
-     */
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    /**
-     * @return is_deleted
-     */
-    public Boolean getIsDeleted() {
-        return isDeleted;
-    }
-
-    /**
-     * @param isDeleted
-     */
-    public void setIsDeleted(Boolean isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
     }
 }

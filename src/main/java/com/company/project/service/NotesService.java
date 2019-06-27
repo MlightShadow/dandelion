@@ -11,6 +11,6 @@ public interface NotesService extends Service<Notes> {
     Notes addNotes(NotesDTO dto);
 
     int updateNotes(String id, NotesDTO dto);
-    
+
     int deleteNotes(String id);
 }

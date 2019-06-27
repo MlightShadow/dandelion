@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.company.project.aop.NeedApiLog;
 import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
 import com.company.project.dto.AuthorizedInfo;
@@ -37,17 +38,13 @@ public class TokenController {
     @Resource
     private AccountService accountService;
 
-    // @NeedApiLog 没数据库就不log了
+    @NeedApiLog
     @PostMapping("/take")
     public Result<?> take(@RequestBody LoginDTO loginInfo) {
         Condition condition = new Condition(Account.class);
-        try {
-            condition.createCriteria().andCondition("username=", loginInfo.getUsername()).andCondition("password=",
-                    MD5.md5(loginInfo.getPassword()));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResultGenerator.genFailResult("登录失败");
-        }
+        
+        condition.createCriteria().andCondition("name=", loginInfo.getName()).andCondition("password=",
+                MD5.md5(loginInfo.getPassword()));
 
         List<Account> list = accountService.findByCondition(condition);
         Account account = new Account();
@@ -67,15 +64,11 @@ public class TokenController {
 
     @GetMapping("validate")
     public Result<?> test() {
-
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String name = "";
         if (principal instanceof UserDetails) {
-
             name = ((UserDetails) principal).getUsername();
-
         }
-
         return ResultGenerator.genSuccessResult(name + "你已通过验证");
     }
 }

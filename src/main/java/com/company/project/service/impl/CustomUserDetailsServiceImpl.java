@@ -11,14 +11,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-@Component(value="CustomUserDetailsService")
-public class CustomUserDetailsServiceImpl extends AbstractService<Account>  implements UserDetailsService {
+@Component(value = "CustomUserDetailsService")
+public class CustomUserDetailsServiceImpl extends AbstractService<Account> implements UserDetailsService {
     @Resource
     private AccountMapper accountMapper;
 
     @Override
     public AuthorizedInfo loadUserByUsername(String name) throws UsernameNotFoundException {
-        AuthorizedInfo a = new AuthorizedInfo("12301","123","123");
+        AuthorizedInfo a = new AuthorizedInfo("12301", "123", "123");
         return a;
     }
 }

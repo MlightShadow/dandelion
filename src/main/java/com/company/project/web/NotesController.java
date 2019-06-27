@@ -26,10 +26,10 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* Created by CodeGenerator on 2019/06/26.
-*/
+ * Created by CodeGenerator on 2019/06/26.
+ */
 @ApiIgnore
-@Api(description="Notes")
+@Api(description = "Notes")
 @RestController
 @RequestMapping("/notes")
 public class NotesController {
@@ -37,36 +37,36 @@ public class NotesController {
     private NotesService notesService;
 
     @NeedApiLog
-    @ApiOperation(value="新增")
+    @ApiOperation(value = "新增")
     @PostMapping
     public Result<?> add(@RequestBody NotesDTO dto) {
         return ResultGenerator.genSuccessResult(notesService.addNotes(dto));
     }
 
     @NeedApiLog
-    @ApiOperation(value="删除")
+    @ApiOperation(value = "删除")
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable String id) {
         return ResultGenerator.genSuccessResult(notesService.deleteNotes(id));
     }
 
     @NeedApiLog
-    @ApiOperation(value="更新")
+    @ApiOperation(value = "更新")
     @PutMapping("/{id}")
     public Result<?> update(@PathVariable String id, @RequestBody NotesDTO dto) {
         return ResultGenerator.genSuccessResult(notesService.updateNotes(id, dto));
     }
 
-    @ApiOperation(value="详情")
+    @ApiOperation(value = "详情")
     @GetMapping("/{id}")
     public Result<?> detail(@PathVariable String id) {
         Notes notes = notesService.findById(id);
         return ResultGenerator.genSuccessResult(notes);
     }
 
-    @ApiOperation(value="列表")
+    @ApiOperation(value = "列表")
     @GetMapping
-    public Result<?> list(@RequestParam(defaultValue = "0") Integer page, 
+    public Result<?> list(@RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "0") Integer size,
             @RequestParam(defaultValue = "") @ApiParam(required = false) String searchString) {
         PageHelper.startPage(page, size);

@@ -16,7 +16,7 @@ public class CacheConfigurer {
     @Bean
     public CacheManager cacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
-        cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("dicts")));//注册名dicts的缓存
+        cacheManager.setCaches(Arrays.asList(new ConcurrentMapCache("dicts")));// 注册名dicts的缓存
         return cacheManager;
     }
 

@@ -38,7 +38,8 @@ public class ApiLogController {
 
     @ApiOperation(value = "列表")
     @GetMapping
-    public Result<?> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
+    public Result<?> list(@RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
         List<ApiLog> list = apiLogService.findAll();
         PageInfo<?> pageInfo = new PageInfo<ApiLog>(list);

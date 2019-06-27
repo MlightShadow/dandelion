@@ -4,7 +4,8 @@ import com.company.project.aop.NeedApiLog;
 import com.company.project.aop.TargetDataSource;
 import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
-import com.company.project.dto.AccountDTO;
+import com.company.project.dto.account.AccountDTO;
+import com.company.project.dto.account.RegisterDTO;
 import com.company.project.model.Account;
 import com.company.project.service.AccountService;
 import com.github.pagehelper.PageHelper;
@@ -33,9 +34,9 @@ public class AccountController {
     private AccountService accountService;
 
     @NeedApiLog
-    @ApiOperation(value = "新增 默认password: 123456")
-    @PostMapping
-    public Result<?> add(@RequestBody AccountDTO dto) {
+    @ApiOperation(value = "注册")
+    @PostMapping("/register")
+    public Result<?> register(@RequestBody RegisterDTO dto) {
         return ResultGenerator.genSuccessResult(accountService.addAccount(dto));
     }
 

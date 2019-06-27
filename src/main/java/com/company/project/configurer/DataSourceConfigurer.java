@@ -40,7 +40,7 @@ public class DataSourceConfigurer {
     }
 
     @Bean
-    public JdbcOperations authJdbcOperations(@Qualifier("authDataSource")DataSource authDataSource) {
+    public JdbcOperations authJdbcOperations(@Qualifier("authDataSource") DataSource authDataSource) {
         return new JdbcTemplate(authDataSource);
     }
 
@@ -48,7 +48,7 @@ public class DataSourceConfigurer {
     public PlatformTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());
     }
-    
+
     @Bean
     public DynamicDataSource dataSource() {
         DynamicDataSource dynamicDataSource = new DynamicDataSource();

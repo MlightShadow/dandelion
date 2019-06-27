@@ -33,7 +33,7 @@ public class NotesServiceImpl extends AbstractService<Notes> implements NotesSer
     private UUIDUtil uuid;
 
     @Override
-    public Notes addNotes(NotesDTO dto){
+    public Notes addNotes(NotesDTO dto) {
         Notes notes = new Notes();
         notes.setId(uuid.getUUID());
         notes.setIsDeleted(false);
@@ -49,7 +49,7 @@ public class NotesServiceImpl extends AbstractService<Notes> implements NotesSer
     }
 
     @Override
-    public int updateNotes(String id, NotesDTO dto){
+    public int updateNotes(String id, NotesDTO dto) {
         Notes notes = new Notes();
         notes.setId(id);
 
@@ -62,7 +62,7 @@ public class NotesServiceImpl extends AbstractService<Notes> implements NotesSer
     }
 
     @Override
-    public int deleteNotes(String id){
+    public int deleteNotes(String id) {
         Notes notes = new Notes();
         notes.setId(id);
         notes.setIsDeleted(true);

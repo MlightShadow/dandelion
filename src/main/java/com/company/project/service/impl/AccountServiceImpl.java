@@ -1,7 +1,8 @@
 package com.company.project.service.impl;
 
 import com.company.project.dao.AccountMapper;
-import com.company.project.dto.AccountDTO;
+import com.company.project.dto.account.AccountDTO;
+import com.company.project.dto.account.RegisterDTO;
 import com.company.project.model.Account;
 import com.company.project.service.AccountService;
 import com.company.project.util.MD5Util;
@@ -36,25 +37,26 @@ public class AccountServiceImpl extends AbstractService<Account> implements Acco
     private MD5Util MD5;
 
     @Override
-    public Account addAccount(AccountDTO dto) {
-        
+    public Account addAccount(RegisterDTO dto) {
+
         // 判断用户名是否存在
         Condition condition = new Condition(Account.class);
-        condition.createCriteria().andCondition("username=", dto.getUsername());
+        condition.createCriteria().andCondition("name=", dto.getName());
         List<Account> list = this.findByCondition(condition);
 
-        if(list.size() > 0){
+        if (list.size() > 0) {
             throw new ServiceException("用户名已存在");
         }
 
         Account account = new Account();
         account.setId(uuid.getUUID());
         account.setIsDeleted(false);
+        account.setCreator(account.getId()); //自己创建
         account.setCreateTime(new Date());
 
-        account.setName(dto.getUsername());
+        account.setName(dto.getName());
         try {
-            account.setPassword(MD5.md5("123456"));
+            account.setPassword(MD5.md5(dto.getPassword()));
         } catch (Exception e) {
             throw new ServiceException("系统异常");
         }
@@ -71,7 +73,7 @@ public class AccountServiceImpl extends AbstractService<Account> implements Acco
     public int updateAccount(String id, AccountDTO dto) {
         Account account = new Account();
         account.setId(id);
-        account.setName(dto.getUsername());
+        account.setName(dto.getName());
 
         int rows = this.update(account);
         if (rows == 1) {

@@ -9,8 +9,11 @@ public class AccountDTO {
     @ApiModelProperty(value = "帐号名")
     private String name;
 
-    @ApiModelProperty(value = "密码")
-    private String password;
+    @ApiModelProperty(value = "昵称")
+    private String nickName;
+
+    @ApiModelProperty(value = "头像")
+    private String avatar;
 
     public String getName() {
         return name;
@@ -20,11 +23,19 @@ public class AccountDTO {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getNickName() {
+        return nickName;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

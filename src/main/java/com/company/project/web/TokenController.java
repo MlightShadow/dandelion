@@ -9,14 +9,14 @@ import com.company.project.core.Result;
 import com.company.project.core.ResultGenerator;
 import com.company.project.dto.AuthorizedInfo;
 import com.company.project.dto.LoginDTO;
+import com.company.project.dto.account.AccountDTO;
 import com.company.project.model.Account;
 import com.company.project.service.AccountService;
 import com.company.project.util.JWTUtil;
 import com.company.project.util.MD5Util;
+import com.company.project.util.SecurityContextUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.Api;
@@ -29,6 +29,10 @@ import tk.mybatis.mapper.entity.Condition;
 @RestController
 @RequestMapping("/token")
 public class TokenController {
+
+    @Autowired
+    private SecurityContextUtil securityContextUtil;
+
     @Autowired
     private MD5Util MD5;
 
@@ -42,7 +46,7 @@ public class TokenController {
     @PostMapping("/take")
     public Result<?> take(@RequestBody LoginDTO loginInfo) {
         Condition condition = new Condition(Account.class);
-        
+
         condition.createCriteria().andCondition("name=", loginInfo.getName()).andCondition("password=",
                 MD5.md5(loginInfo.getPassword()));
 
@@ -62,13 +66,15 @@ public class TokenController {
 
     }
 
-    @GetMapping("validate")
-    public Result<?> test() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String name = "";
-        if (principal instanceof UserDetails) {
-            name = ((UserDetails) principal).getUsername();
-        }
-        return ResultGenerator.genSuccessResult(name + "你已通过验证");
+    @GetMapping("/whoami")
+    public Result<?> whoami() {
+        AccountDTO info = new AccountDTO();
+        Account account = accountService.findById(securityContextUtil.getAuthInfo().getId());
+
+        info.setName(account.getName());
+        info.setAvatar(account.getAvatar());
+        info.setNickName(account.getNickName());
+
+        return ResultGenerator.genSuccessResult(info);
     }
 }

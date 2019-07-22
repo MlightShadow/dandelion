@@ -1,0 +1,1 @@
+docker run -itd -v /home/pi/docker_conf/api/dandelion/:/dandelion -v /home/pi/docker_conf/api/upload_file/:/upload_file -p 80:8080 dandelion:latest

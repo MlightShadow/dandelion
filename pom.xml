@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.samplestudio.mlightshadow</groupId>
-    <artifactId>dandelion_seed</artifactId>
+    <artifactId>dandelion</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 

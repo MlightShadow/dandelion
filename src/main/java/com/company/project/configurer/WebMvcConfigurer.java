@@ -20,11 +20,13 @@ import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.company.project.core.Result;
 import com.company.project.core.ResultCode;
 import com.company.project.core.ServiceException;
+import com.company.project.util.ResponseUtil;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -50,6 +52,9 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
     @Value("${web.upload-path}")
     private String filePath;
+
+    @Autowired
+    private ResponseUtil responseUtil;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -109,7 +114,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                     }
                     logger.error(message, e);
                 }
-                responseResult(response, result);
+                responseUtil.responseResult(response, result);
                 return new ModelAndView();
             }
 
@@ -129,17 +134,6 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         // 接口签名认证拦截器，该签名认证比较简单，实际项目中可以使用Json Web Token或其他更好的方式替代。
         // 使用 spring security 不再单独添加拦截器
-    }
-
-    private void responseResult(HttpServletResponse response, Result<?> result) {
-        response.setCharacterEncoding("UTF-8");
-        response.setHeader("Content-type", "application/json;charset=UTF-8");
-        response.setStatus(200);
-        try {
-            response.getWriter().write(JSON.toJSONString(result));
-        } catch (IOException ex) {
-            logger.error(ex.getMessage());
-        }
     }
 
     /**

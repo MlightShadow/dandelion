@@ -8,8 +8,6 @@ import org.springframework.stereotype.Component;
 public class DateUtil {
     public static SimpleDateFormat dateFormat(String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
-        // sdf.setTimeZone(TimeZone.getTimeZone("Asia/Shanghai"));
-
         return sdf;
     }
 }

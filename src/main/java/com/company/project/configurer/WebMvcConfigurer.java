@@ -1,6 +1,5 @@
 package com.company.project.configurer;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;

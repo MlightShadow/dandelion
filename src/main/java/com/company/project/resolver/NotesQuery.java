@@ -16,16 +16,8 @@ public class NotesQuery implements GraphQLQueryResolver {
 
     @Autowired
     private NotesService notesService;
-    
-    public NotesQuery(){}
-
 
     public List<Notes> notes() {
         return notesService.findAll();
     }
-
-    public Notes notes(String id) {
-        return notesService.findById(id);
-    }
-
 }

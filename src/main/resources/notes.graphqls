@@ -1,0 +1,16 @@
+type Notes {
+    id: String,
+    title: String,
+    content: String,
+    creator:String,
+    isDeleted: Int
+}
+
+type Query{
+    notes: [Notes]
+}
+
+
+schema {
+    query: Query
+}

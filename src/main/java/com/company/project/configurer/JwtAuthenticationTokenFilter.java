@@ -32,12 +32,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
         String auth_token = request.getHeader(this.token_header);
-        System.out.println(auth_token);
-        String id = jwtUtil.getUserIdFromToken(auth_token);
+        String id = null;
+        if (StringUtils.isNotBlank(auth_token)) {
+            id = jwtUtil.getUserIdFromToken(auth_token);
+            logger.info(String.format("Checking authentication for userDetail %s.", id));
+        }
 
-        logger.info(String.format("Checking authentication for userDetail %s.", id));
-
-        if (jwtUtil.containToken(id, auth_token) && StringUtils.isNotBlank(id)
+        if (StringUtils.isNotBlank(id) && jwtUtil.containToken(id, auth_token)
                 && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             AuthorizedInfo userDetail = jwtUtil.getUserFromToken(auth_token);
@@ -47,6 +48,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                         null, userDetail.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 logger.info(String.format("Authenticated userDetail %s, setting security context", id));
+
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }

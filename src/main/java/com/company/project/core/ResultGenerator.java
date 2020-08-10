@@ -22,4 +22,8 @@ public class ResultGenerator {
     public static Result<?> genUnAuthorizedResult(String message) {
         return new Result<>().setCode(ResultCode.UNAUTHORIZED).setMessage(message);
     }
+
+    public static Result<?> genForbiddenResult(String message){
+        return new Result<>().setCode(ResultCode.FORBIDDEN).setMessage(message);
+    }
 }

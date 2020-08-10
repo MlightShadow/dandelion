@@ -53,14 +53,15 @@ public class HttpUtil {
             throws ClientProtocolException, IOException {
         // 设置请求头数据传输格式,使用表单提交的方式,postman中有写
         Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Content-Type","application/x-www-form-urlencoded");
+        headers.put("Content-Type", "application/x-www-form-urlencoded");
         return post(url, null, params, headers);
     }
 
     // POST方法,发送json格式（如果不需要header可传入null）
-    public static CloseableHttpResponse postJson(String url, String jsonString, Map<String, String> headers)
+    public static CloseableHttpResponse postJson(String url, String jsonString)
             throws ClientProtocolException, IOException {
         // 准备请求头信息
+        Map<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "application/json");// postman中有写
         return post(url, jsonString, null, headers);
     }
@@ -93,7 +94,7 @@ public class HttpUtil {
             }
         }
         // 发送post请求
-        
+
         CloseableHttpResponse httpResponse = httpclient.execute(httppost);
         return httpResponse;
     }
@@ -135,7 +136,6 @@ public class HttpUtil {
 
     /**
      * 获取响应状态码，常用来和TestBase中定义的状态码常量去测试断言使用
-     * 
      * @param response
      * @return 返回int类型状态码
      */

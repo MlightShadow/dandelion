@@ -68,9 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 // 基于token，所以不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-
                 .authorizeRequests()
-
                 // 对于获取token的rest api要允许匿名访问
                 .antMatchers("/token/take").permitAll().antMatchers("/account/register").permitAll()
                 // 除上面外的所有请求全部需要鉴权认证

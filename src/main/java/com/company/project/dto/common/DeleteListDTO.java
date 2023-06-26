@@ -2,8 +2,6 @@ package com.company.project.dto.common;
 
 import java.util.List;
 
-import com.company.project.dto.common.IdDTO;
-
 import io.swagger.annotations.ApiModelProperty;
 
 public class DeleteListDTO {

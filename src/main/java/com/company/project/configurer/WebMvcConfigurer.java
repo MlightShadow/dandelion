@@ -25,6 +25,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -61,6 +62,9 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
     @Value("${web.upload-path}")
     private String filePath;
+
+    @Autowired
+    CorsInterceptor corsInterceptor;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -151,8 +155,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
     // 添加拦截器
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 接口签名认证拦截器，该签名认证比较简单，实际项目中可以使用Json Web Token或其他更好的方式替代。
-        // 使用 spring security 不再单独添加拦截器
+        registry.addInterceptor(corsInterceptor);
     }
 
     private void responseResult(HttpServletResponse response, Result<?> result) {
